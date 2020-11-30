@@ -348,12 +348,13 @@ body {
 .myCart{
   height: 500px;
   width: 300px;
-  border: 5px solid black;
   position: absolute;
+  background: rgb(255, 255, 255, 0.7);
+  
   top: 100;
   right: 0;
-  background-color: white;
-  border-radius: 5px;
+  border-top-left-radius: 29px;
+  border-bottom-left-radius: 29px;
   padding: 5px 10px;
   margin: 5px 0px;
   display: block;
@@ -391,9 +392,8 @@ body {
   width: 90%;
   padding: 4px 10px;
   height: 70px;
-  border: 2px solid black;
   justify-content: space-between;
-  background-color: rgb(216, 216, 216);
+  background: none;
   margin: 10px 0px;
 }
 
@@ -440,6 +440,7 @@ body {
 .cartDeleteButton{
   height: 20px;
   width: 20px;
+  cursor: pointer;
 }
 
 .clearCartBtn{
@@ -453,4 +454,23 @@ body {
 }
 
 
-
+.alertText{
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 0, 0);
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 5%;
+  width: 90%;
+  height: 30px;
+  padding: 4px 8px;
+  font-size: 1.9rem;
+  border-radius: 50px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: lighter;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+}

@@ -163,8 +163,8 @@ let numberOfCartItemCount = 0;
 let totalCartAmount = [];
 let cartTotalAmount;
 
-function calculate(){
-    if(toCart.length != 0){
+function calculate() {
+    if (toCart.length != 0) {
 
         toCart.forEach(element => {
             cartTotalAmount = Number(element.foodValue.substr(2, 2));
@@ -172,18 +172,18 @@ function calculate(){
         totalCartAmount.push(cartTotalAmount)
         cartTotalAmount = 0;
         cartTotalAmount += totalCartAmount.reduce((accumulator, currentValue) => accumulator + currentValue);
-        
+
         //for total amount of inside cart box
         cartTotalValue.innerHTML = `$ ${cartTotalAmount}`
         // for total amount to show up in external button
-        cartTotalAmountt.innerHTML = cartTotalAmount ;
-        
+        cartTotalAmountt.innerHTML = cartTotalAmount;
+
         // number of items count to show up in external button
         numberOfCartItemCount++;
         numberOfTotalCartItems.innerHTML = numberOfCartItemCount;
-    }else{
+    } else {
         numberOfTotalCartItems.innerHTML = 0;
-        cartTotalAmountt.innerHTML = '$ 0' ;
+        cartTotalAmountt.innerHTML = '$ 0';
         cartTotalValue.innerHTML = `$ 0`
     }
 }
@@ -191,15 +191,29 @@ function calculate(){
 //grabing all the elements with class cartItem which is all cart image inside each bakery's items
 let cartItem = document.querySelectorAll('.cartItem');
 
+//grabing alertPopup badge
+let alertPopup = document.getElementById('alertPopup');
+//alertPopup badge dispaly none
+alertPopup.style.display = 'none'
+//alertText
+let alertText = document.getElementById('alertText');
+
 //iterating over all the elements having cartItem as a class
 cartItem.forEach(element => {
     //adding click event listner to each
     element.addEventListener('click', () => {
+        // popupModal showUp
+        alertText.innerText = 'Added!';
+        alertPopup.style.display = 'block';
+        //Again hide the modal
+        setTimeout(() => {
+            alertPopup.style.display = 'none';
+        }, 1000)
         //selecting the dom element of clicked element
         let foodName = element.parentElement.nextElementSibling.children[0].children[0].textContent;
         let foodValue = element.parentElement.nextElementSibling.children[0].children[1].innerText;
         let foodImage = element.parentElement.children[0].src;
-        
+
         //creating new objects with consturctor and returning a object to push in toCart array.
         let cartItemValues = new ItemsInCart(foodName, foodValue, foodImage).eachItem();
         toCart.push(cartItemValues);
@@ -229,13 +243,13 @@ function updateCart() {
             <h4 class="cartItemName">${element.foodName}</h4>
             <p class="cartItemValue">${element.foodValue}</p>
             </div>
-            <img src="img/search.svg" alt="" class="cartDeleteButton">
+            <img src="img/trash.svg" alt="" class="cartDeleteButton">
             </div>`;
         })
     }
     //setting 'html' as innerhtml of cartItems
     cartItems.innerHTML = html;
-    
+
 }
 
 //Creating class constructor
@@ -245,7 +259,7 @@ class ItemsInCart {
         this.foodValue = foodValue;
         this.foodImage = foodImage;
     }
-// to return object
+    // to return object
     eachItem() {
         let itemContent = {
             foodName: this.foodName,
@@ -263,14 +277,19 @@ class ItemsInCart {
 //Clearing ll the carts
 let clearCart = document.getElementById('clearCart')
 clearCart.addEventListener('click', () => {
-    if(toCart.length != 0){
-        if(window.confirm('Do you really want to clear all the cart items')){
+    if (toCart.length != 0) {
+        if (window.confirm('Do you really want to clear all the cart items')) {
+            alertText.innerText = 'Deleted!';
+            alertPopup.style.display = 'block';
+            setTimeout(() => {
+                alertPopup.style.display = 'none';
+            }, 1000)
             toCart = [];
-            
+
             updateCart();
             calculate();
         }
-    }else{
+    } else {
         alert('Your Cart is already empty')
     }
 })
