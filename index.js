@@ -169,6 +169,7 @@ function calculate() {
         toCart.forEach(element => {
             cartTotalAmount = Number(element.foodValue.substr(2, 2));
         })
+
         totalCartAmount.push(cartTotalAmount)
         cartTotalAmount = 0;
         cartTotalAmount += totalCartAmount.reduce((accumulator, currentValue) => accumulator + currentValue);
@@ -183,8 +184,8 @@ function calculate() {
         numberOfTotalCartItems.innerHTML = numberOfCartItemCount;
     } else {
         numberOfTotalCartItems.innerHTML = 0;
-        cartTotalAmountt.innerHTML = '$ 0';
-        cartTotalValue.innerHTML = `$ 0`
+        cartTotalAmountt.innerHTML = '0';
+        cartTotalValue.innerHTML = `$ 0`;
     }
 }
 
@@ -284,13 +285,20 @@ clearCart.addEventListener('click', () => {
             setTimeout(() => {
                 alertPopup.style.display = 'none';
             }, 1000)
+
             toCart = [];
+            //setting cartTotalAmount to 0 again
+            numberOfCartItemCount = 0;
+            totalCartAmount = [];
+
 
             updateCart();
             calculate();
         }
     } else {
         alert('Your Cart is already empty')
+        calculate()
     }
+    cartTotalAmountt.innerHTML = '0';
 })
 
